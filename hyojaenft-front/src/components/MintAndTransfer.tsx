@@ -58,7 +58,7 @@ export const MintAndTransfer = ({ account, setAccount }: MintTranProps) => {
   hyojaeNFTFactory = hyojaeNFTFactory.connect(signer);
 
   const Register = async () => {
-    const tx = await hyojaeNFTFactory.registerSimpleCardInfo(
+    const tx = await hyojaeNFTFactory.registerCard(
       name,
       age,
       email,
@@ -78,7 +78,7 @@ export const MintAndTransfer = ({ account, setAccount }: MintTranProps) => {
   };
 
   const TransferTo = async () => {
-    const tx = await hyojaeNFTFactory.transferSimpleCardNFT(transferTo);
+    const tx = await hyojaeNFTFactory.exchangeCard(transferTo);
     const txReceipt = await tx.wait();
     console.log(txReceipt);
   };
