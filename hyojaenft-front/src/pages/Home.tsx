@@ -3,7 +3,7 @@ import { Wallet } from "../components/Wallet";
 import { useConnect } from "wagmi";
 import { Navbar } from "../components/Navbar";
 import { styled } from "styled-components";
-// import { MintAndTransfer } from "../components/MintAndTransfer";
+import { MintAndTransfer } from "../components/MintAndTransfer";
 
 export const Home = () => {
   const [account, setAccount] = useState("");
@@ -15,10 +15,10 @@ export const Home = () => {
         {/* <WalletName></WalletName> */}
         <Wallet account={account} setAccount={setAccount}></Wallet>
       </div>
-      {/* <MintAndTransfer
+      <MintAndTransfer
         account={account}
         setAccount={setAccount}
-      ></MintAndTransfer> */}
+      ></MintAndTransfer>
     </>
   );
 };
