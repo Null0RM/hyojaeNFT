@@ -49,8 +49,10 @@ contract HyojaeNFT is ERC721Enumerable {
         uint senderTokenId,
         uint recipientTokenId,
         address indexed issuer,
-        address with
+        address recipient
     );
+
+    constructor() ERC721("HyojaeNFT", "hyojae") {}
 
     // 명함을 등록하는 함수
     function registerCard(
