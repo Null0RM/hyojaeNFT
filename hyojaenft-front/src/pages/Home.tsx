@@ -5,16 +5,20 @@ import { Navbar } from "../components/Navbar";
 import { styled } from "styled-components";
 import { MintAndTransfer } from "../components/MintAndTransfer";
 
+const Container = styled.div`
+  margin-bottom: 2rem;
+`;
+
 export const Home = () => {
   const [account, setAccount] = useState("");
 
   return (
     <>
-      <div>
+      <Container>
         <Navbar></Navbar>
         {/* <WalletName></WalletName> */}
         <Wallet account={account} setAccount={setAccount}></Wallet>
-      </div>
+      </Container>
       <MintAndTransfer
         account={account}
         setAccount={setAccount}

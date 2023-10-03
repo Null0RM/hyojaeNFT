@@ -1,6 +1,17 @@
 import React from "react";
+import { styled } from "styled-components";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const StyledButton = styled.button`
+  display: flex;
+  justify-content: center;
+`;
 
 interface WalletProps {
   account: string;
@@ -17,7 +28,7 @@ export const Wallet = ({ account, setAccount }: WalletProps) => {
   setAccount(address!);
 
   return (
-    <div>
+    <Container>
       {isConnected ? (
         <>
           <div>
@@ -28,6 +39,6 @@ export const Wallet = ({ account, setAccount }: WalletProps) => {
       ) : (
         <button onClick={() => connect()}>Connect Wallet</button>
       )}
-    </div>
+    </Container>
   );
 };
