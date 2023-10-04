@@ -1,5 +1,5 @@
 import { constants } from "../components/constants";
-import { ethers, Contract, utils } from "ethers";
+import { ethers } from "ethers";
 import HyojaeNFTFactoryABI from "../abi/HyojaeNFT.json";
 import { useState } from "react";
 import { styled } from "styled-components";
@@ -30,6 +30,34 @@ const StyledInput = styled.input`
   margin-bottom: 1rem;
 `;
 
+const StyledButton = styled.button`
+  margin-left: 10px;
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid $red;
+  border-radius: 0.6em;
+  color: $red;
+  cursor: pointer;
+  padding: 10px;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 20px;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+
+  &:hover,
+  &:focus {
+    color: red;
+    outline: 0;
+  }
+`;
+
 const abi = HyojaeNFTFactoryABI.abi;
 interface MintTranProps {
   account: string;
@@ -44,10 +72,6 @@ export const MintAndTransfer = ({ account, setAccount }: MintTranProps) => {
   const [gender, setGender] = useState("");
   const [exchangeTo, setExchangeTo] = useState("");
 
-  //ethers.js 라이브러리를 사용하여 이더리움과 연결합니다.
-  //// signer는 거래에 서명할 수 있는 객체입니다.
-  //// provider는 이더리움 노드에 연결하는 객체입니다.
-  //// simpleCardNFTFactory는 스마트 컨트랙트와 상호작용할 수 있는 객체입니다.
   const signer = new ethers.providers.Web3Provider(window.ethereum).getSigner();
 
   const provider = new ethers.providers.JsonRpcProvider(
@@ -71,14 +95,6 @@ export const MintAndTransfer = ({ account, setAccount }: MintTranProps) => {
     const txReceipt = await tx.wait();
     console.log(txReceipt);
   };
-
-  // const Mint = async () => {
-  //   const tx = await hyojaeNFTFactory.mintSimpleCardNFT({
-  //     value: utils.parseEther("0.01"),
-  //   });
-  //   const txReceipt = await tx.wait();
-  //   console.log(txReceipt);
-  // };
 
   const ExchangeTo = async () => {
     const tx = await hyojaeNFTFactory.exchangeCard(exchangeTo);
@@ -121,19 +137,17 @@ export const MintAndTransfer = ({ account, setAccount }: MintTranProps) => {
           onChange={(e) => setGender(e.target.value)}
         />
 
-        <button onClick={() => Register()}>Register My Info</button>
+        <StyledButton onClick={() => Register()}>Register My Info</StyledButton>
       </Container>
-      {/* <Container>
-        <button onClick={() => Mint()}>Mint</button>
-      </Container>*/}
+
       <Container>
-        <input
+        <StyledInput
           type="text"
           placeholder="Exchange to"
           value={exchangeTo}
           onChange={(e) => setExchangeTo(e.target.value)}
         />
-        <button onClick={() => ExchangeTo()}>Exchange </button>
+        <StyledButton onClick={() => ExchangeTo()}>Exchange </StyledButton>
       </Container>
     </>
   );

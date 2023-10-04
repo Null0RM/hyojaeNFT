@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Wallet } from "../components/Wallet";
-import { useConnect } from "wagmi";
 import { Navbar } from "../components/Navbar";
 import { styled } from "styled-components";
 import { MintAndTransfer } from "../components/MintAndTransfer";
@@ -19,10 +18,7 @@ export const Home = () => {
         {/* <WalletName></WalletName> */}
         <Wallet account={account} setAccount={setAccount}></Wallet>
       </Container>
-      <MintAndTransfer
-        account={account}
-        setAccount={setAccount}
-      />
+      <MintAndTransfer account={account} setAccount={setAccount} />
     </>
   );
 };
