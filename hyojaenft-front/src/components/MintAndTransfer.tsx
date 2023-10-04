@@ -1,7 +1,7 @@
 import { constants } from "../components/constants";
 import { ethers, Contract, utils } from "ethers";
 import HyojaeNFTFactoryABI from "../abi/HyojaeNFT.json";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { styled } from "styled-components";
 
 const Container = styled.div`
@@ -9,6 +9,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2rem;
 `;
 
 const StyledInput = styled.input`
@@ -26,6 +27,7 @@ const StyledInput = styled.input`
   input:valid ~ span {
     width: 100%;
   }
+  margin-bottom: 1rem;
 `;
 
 const abi = HyojaeNFTFactoryABI.abi;
@@ -40,7 +42,7 @@ export const MintAndTransfer = ({ account, setAccount }: MintTranProps) => {
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
   const [gender, setGender] = useState("");
-  const [transferTo, setTransferTo] = useState("");
+  const [exchangeTo, setExchangeTo] = useState("");
 
   //ethers.js 라이브러리를 사용하여 이더리움과 연결합니다.
   //// signer는 거래에 서명할 수 있는 객체입니다.
@@ -59,30 +61,30 @@ export const MintAndTransfer = ({ account, setAccount }: MintTranProps) => {
   hyojaeNFTFactory = hyojaeNFTFactory.connect(signer);
 
   const Register = async () => {
-
     const tx = await hyojaeNFTFactory.registerCard(
       name,
       age,
       email,
       website,
-      gender,
+      gender
     );
     const txReceipt = await tx.wait();
     console.log(txReceipt);
   };
 
-  const Mint = async () => {
-    const tx = await hyojaeNFTFactory.mintSimpleCardNFT({
-      value: utils.parseEther("0.01"),
-    });
-    const txReceipt = await tx.wait();
-    console.log(txReceipt);
-  };
+  // const Mint = async () => {
+  //   const tx = await hyojaeNFTFactory.mintSimpleCardNFT({
+  //     value: utils.parseEther("0.01"),
+  //   });
+  //   const txReceipt = await tx.wait();
+  //   console.log(txReceipt);
+  // };
 
-  const TransferTo = async () => {
-    const tx = await hyojaeNFTFactory.exchangeCard(transferTo);
+  const ExchangeTo = async () => {
+    const tx = await hyojaeNFTFactory.exchangeCard(exchangeTo);
     const txReceipt = await tx.wait();
     console.log(txReceipt);
+    console.log("exchange done");
   };
 
   return (
@@ -121,18 +123,18 @@ export const MintAndTransfer = ({ account, setAccount }: MintTranProps) => {
 
         <button onClick={() => Register()}>Register My Info</button>
       </Container>
-      <div>
+      {/* <Container>
         <button onClick={() => Mint()}>Mint</button>
-      </div>
-      <div>
+      </Container>*/}
+      <Container>
         <input
           type="text"
-          placeholder="Transfer to"
-          value={transferTo}
-          onChange={(e) => setTransferTo(e.target.value)}
+          placeholder="Exchange to"
+          value={exchangeTo}
+          onChange={(e) => setExchangeTo(e.target.value)}
         />
-        <button onClick={() => TransferTo()}>Transfer</button>
-      </div>
+        <button onClick={() => ExchangeTo()}>Exchange </button>
+      </Container>
     </>
   );
 };
