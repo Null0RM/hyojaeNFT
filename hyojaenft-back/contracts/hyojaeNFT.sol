@@ -31,6 +31,8 @@ contract HyojaeNFT is ERC721Enumerable {
     mapping(address => BusinessCard) private _BCInfoByAddress;
     // 주소를 키로 하는 발행된 본인 명함 개수
     mapping(address => uint256) private _amountCards;
+    // TokenIds를 리턴하는 매핑
+    mapping(address => uint256[]) private _exchangedTokenIdsOfOwner;
 
     // 새로운 정보를 등록하고 그 로그를 기록
     event registerInfo(
@@ -114,6 +116,9 @@ contract HyojaeNFT is ERC721Enumerable {
         _transfer(msg.sender, _to, senderTokenId);
         _transfer(_to, msg.sender, recipientTokenId);
 
+        _exchangedTokenIdsOfOwner[msg.sender].push(recipientTokenId);
+        _exchangedTokenIdsOfOwner[_to].push(senderTokenId);
+
         emit cardExchanged(senderTokenId, recipientTokenId, msg.sender, _to);
     }
 
@@ -122,5 +127,15 @@ contract HyojaeNFT is ERC721Enumerable {
         uint256 tokenId
     ) public view returns (BusinessCard memory) {
         return _BCInfoByTokenId[tokenId];
+    }
+
+    function getTokenIds(
+        address issuer
+    ) public view returns (uint256[] memory) {
+        require(
+            _exchangedTokenIdsOfOwner[issuer].length > 0,
+            "!!Haven't exchanged any Token!!"
+        );
+        return _exchangedTokenIdsOfOwner[issuer];
     }
 }
