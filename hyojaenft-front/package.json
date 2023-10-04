@@ -21,7 +21,8 @@
     "vite": "^4.4.9",
     "wagmi": "^1.4.3",
     "web-vitals": "^2.1.4",
-    "web3": "^4.1.2"
+    "web3": "^4.1.2",
+    "zustand": "^4.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
