@@ -1,7 +1,7 @@
 import { constants } from "../components/constants";
 import { ethers, Contract, utils } from "ethers";
-import HyojaeNFTFactoryABI from "../abi/HyojaeNFTFactory.json";
-import { useState } from "react";
+import HyojaeNFTFactoryABI from "../abi/HyojaeNFT.json";
+import { useState, useEffect } from "react";
 import { styled } from "styled-components";
 
 const Container = styled.div`
@@ -47,6 +47,7 @@ export const MintAndTransfer = ({ account, setAccount }: MintTranProps) => {
   //// provider는 이더리움 노드에 연결하는 객체입니다.
   //// simpleCardNFTFactory는 스마트 컨트랙트와 상호작용할 수 있는 객체입니다.
   const signer = new ethers.providers.Web3Provider(window.ethereum).getSigner();
+
   const provider = new ethers.providers.JsonRpcProvider(
     constants.SeopoliaRPCUrl
   );
@@ -58,12 +59,13 @@ export const MintAndTransfer = ({ account, setAccount }: MintTranProps) => {
   hyojaeNFTFactory = hyojaeNFTFactory.connect(signer);
 
   const Register = async () => {
+
     const tx = await hyojaeNFTFactory.registerCard(
       name,
       age,
       email,
       website,
-      gender
+      gender,
     );
     const txReceipt = await tx.wait();
     console.log(txReceipt);

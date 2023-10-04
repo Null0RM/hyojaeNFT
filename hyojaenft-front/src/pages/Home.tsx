@@ -22,7 +22,7 @@ export const Home = () => {
       <MintAndTransfer
         account={account}
         setAccount={setAccount}
-      ></MintAndTransfer>
+      />
     </>
   );
 };

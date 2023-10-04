@@ -24,7 +24,7 @@ async function main() {
 
   const temp = await HyojaeNFT;
 
-  console.log("HyojaeNFT deployed to:", temp);
+  console.log("HyojaeNFT deployed to:", await temp.getAddress());
 }
 
 main()
